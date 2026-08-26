@@ -1,79 +1,83 @@
-import print_board
+import board
 import player
-import main
 
-player_1_frame_list = []
-player_2_frame_list = []
 
-for j in range(64):
-    if print_board.board[j] == "⚫️":
-        player_1_frame_list.append(j)
-    elif print_board.board[j] == "⚪️":
-        player_2_frame_list.append(j)
+def show_results():
 
-print_board.print_board()
+    board.update_frame_list()
 
-game_continue = True
-pass_count = 0
-i = 0
+    player_1_count = len(board.player_1_frame_list)
+    player_2_count = len(board.player_2_frame_list)
 
-while "⬜︎" in print_board.board and game_continue:
+    print("プレイヤー 1 ⚫️ は", player_1_count, "個です。")
+    print("プレイヤー 2 ⚪️ は", player_2_count, "個です。")
 
-    if i == 0:
-        player_frame = "⚫️"
+    if player_1_count > player_2_count:
+        print("プレイヤー 1 ⚫️ の勝ちです！おめでとうございます！🎉")
+    elif player_2_count > player_1_count:
+        print("プレイヤー 2 ⚪️ の勝ちです！おめでとうございます！🎉")
     else:
-        player_frame = "⚪️"
+        print("同じコマ数のため、引き分けです。")
 
-    if main.check_can_put(player_frame) == False:
-        print("プレイヤー", i + 1, player_frame, "は置ける場所がないためパスします。")
-        pass_count += 1
 
-        if pass_count == 2:
+def main():
+
+    board.print_board()
+
+    game_continue = True
+    i = 0
+    pass_count = 0
+
+    while "⬜︎" in board.board and game_continue:
+
+        if i == 0:
+            player_frame = "⚫️"
+        else:
+            player_frame = "⚪️"
+
+        if board.check_place(player_frame) == False:
+            print("プレイヤー", i + 1, player_frame, "は置ける場所がないためパスします。")
+            pass_count += 1
+
+            if pass_count == 2:
+                break
+
+            if i == 0:
+                i = 1
+            else:
+                i = 0
+
+            continue
+
+        pass_count = 0
+
+        while True:
+
+            player.check_input(i + 1, player_frame)
+
+            reverse_frame_list = board.check_reverse(player.selected_place, player_frame)
+
+            if reverse_frame_list == []:
+                print("そこにはコマを置けません。場所を変えて下さい。")
+                continue
+
+            break
+
+        board.put_frame(player.selected_place, player_frame, reverse_frame_list)
+        board.update_frame_list()
+        board.print_board()
+
+        if board.check_for_matches("⚪️") == True or board.check_for_matches("⚫️") == True:
+            game_continue = False
             break
 
         if i == 0:
             i = 1
         else:
             i = 0
-        continue
 
-    pass_count = 0
+    show_results()
 
-    while True:
 
-        player.check_input(i + 1, player_frame)
-
-        reverse_frame_list = main.check_reverse_frames(player.selected_place, player_frame)
-
-        if not reverse_frame_list:
-            print("その場所では相手のコマを裏返せません。場所を変えて下さい。")
-            continue
-
-        break
-
-    print_board.board[player.selected_place] = player_frame
-
-    for j in reverse_frame_list:
-        print_board.board[j] = player_frame
-
-    player_1_frame_list = []
-    player_2_frame_list = []
-
-    for j in range(64):
-        if print_board.board[j] == "⚫️":
-            player_1_frame_list.append(j)
-        elif print_board.board[j] == "⚪️":
-            player_2_frame_list.append(j)
-
-    print_board.print_board()
-
-    if main.check_for_matches("⚪️") == True or main.check_for_matches("⚫️") == True:
-        game_continue = False
-        break
-
-    if i == 0:
-        i = 1
-    else:
-        i = 0
-
-main.show_results()
+if __name__ == "__main__":
+    main()
