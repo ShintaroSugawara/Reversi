@@ -9,9 +9,6 @@ board[28] = BLACK
 board[35] = BLACK
 board[36] = WHITE
 
-player_1_frame_list = []
-player_2_frame_list = []
-
 
 def print_board():
     print("  1 2 3 4 5 6 7 8")
@@ -145,18 +142,6 @@ def put_frame(selected_place, player_frame, reverse_frame_list):
 
     for j in reverse_frame_list:
         board[j] = player_frame
-
-
-def update_frame_list():
-
-    player_1_frame_list.clear()
-    player_2_frame_list.clear()
-
-    for j in range(64):
-        if board[j] == BLACK:
-            player_1_frame_list.append(j)
-        elif board[j] == WHITE:
-            player_2_frame_list.append(j)
 
 
 def check_for_matches(player_frame):
