@@ -4,10 +4,8 @@ import player
 
 def show_results():
 
-    board.update_frame_list()
-
-    player_1_count = len(board.player_1_frame_list)
-    player_2_count = len(board.player_2_frame_list)
+    player_1_count = board.board.count(board.BLACK)
+    player_2_count = board.board.count(board.WHITE)
 
     print("プレイヤー 1", board.BLACK, "は", player_1_count, "個です。")
     print("プレイヤー 2", board.WHITE, "は", player_2_count, "個です。")
@@ -64,7 +62,6 @@ def main():
             break
 
         board.put_frame(player.selected_place, player_frame, reverse_frame_list)
-        board.update_frame_list()
         board.print_board()
 
         if board.check_for_matches(board.WHITE) == True or board.check_for_matches(board.BLACK) == True:
