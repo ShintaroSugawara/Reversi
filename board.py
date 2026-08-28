@@ -1,8 +1,8 @@
 BLACK = "⚫️"
 WHITE = "⚪️"
-ENPTY = "⬜︎"
+EMPTY = "⬜︎"
 
-board = [ENPTY] * 64
+board = [EMPTY] * 64
 
 board[27] = WHITE
 board[28] = BLACK
@@ -129,7 +129,7 @@ def check_reverse(selected_place, player_frame):
 def check_place(player_frame):
 
     for i in range(64):
-        if board[i] == ENPTY:
+        if board[i] == EMPTY:
             if check_reverse(i, player_frame) != []:
                 return True
 

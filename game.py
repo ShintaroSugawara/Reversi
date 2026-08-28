@@ -26,7 +26,7 @@ def main():
     i = 0
     pass_count = 0
 
-    while board.ENPTY in board.board and game_continue:
+    while board.EMPTY in board.board and game_continue:
 
         if i == 0:
             player_frame = board.BLACK

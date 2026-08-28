@@ -28,7 +28,7 @@ def check_input(player, frame):
 
         selected_place = ((selected_place_row) - 1) * 8 + ((selected_place_column) - 1)
 
-        if board.board[selected_place] != board.ENPTY:
+        if board.board[selected_place] != board.EMPTY:
             print("そのマスはすでに埋まっています。場所を変えて下さい。")
             continue
 
