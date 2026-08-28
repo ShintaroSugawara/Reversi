@@ -1,9 +1,13 @@
-board = ["⬜︎"] * 64
+BLACK = "⚫️"
+WHITE = "⚪️"
+ENPTY = "⬜︎"
 
-board[27] = "⚪️"
-board[28] = "⚫️"
-board[35] = "⚫️"
-board[36] = "⚪️"
+board = [ENPTY] * 64
+
+board[27] = WHITE
+board[28] = BLACK
+board[35] = BLACK
+board[36] = WHITE
 
 player_1_frame_list = []
 player_2_frame_list = []
@@ -17,10 +21,10 @@ def print_board():
 
 def check_reverse(selected_place, player_frame):
 
-    if player_frame == "⚫️":
-        opponent_frame = "⚪️"
+    if player_frame == BLACK:
+        opponent_frame = WHITE
     else:
-        opponent_frame = "⚫️"
+        opponent_frame = BLACK
 
     reverse_frame_list = []
 
@@ -128,7 +132,7 @@ def check_reverse(selected_place, player_frame):
 def check_place(player_frame):
 
     for i in range(64):
-        if board[i] == "⬜︎":
+        if board[i] == ENPTY:
             if check_reverse(i, player_frame) != []:
                 return True
 
@@ -149,9 +153,9 @@ def update_frame_list():
     player_2_frame_list.clear()
 
     for j in range(64):
-        if board[j] == "⚫️":
+        if board[j] == BLACK:
             player_1_frame_list.append(j)
-        elif board[j] == "⚪️":
+        elif board[j] == WHITE:
             player_2_frame_list.append(j)
 
 

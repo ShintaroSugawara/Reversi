@@ -9,13 +9,13 @@ def show_results():
     player_1_count = len(board.player_1_frame_list)
     player_2_count = len(board.player_2_frame_list)
 
-    print("プレイヤー 1 ⚫️ は", player_1_count, "個です。")
-    print("プレイヤー 2 ⚪️ は", player_2_count, "個です。")
+    print("プレイヤー 1", board.BLACK, "は", player_1_count, "個です。")
+    print("プレイヤー 2", board.WHITE, "は", player_2_count, "個です。")
 
     if player_1_count > player_2_count:
-        print("プレイヤー 1 ⚫️ の勝ちです！おめでとうございます！🎉")
+        print("プレイヤー 1", board.BLACK, "の勝ちです！おめでとうございます！🎉")
     elif player_2_count > player_1_count:
-        print("プレイヤー 2 ⚪️ の勝ちです！おめでとうございます！🎉")
+        print("プレイヤー 2", board.WHITE, "の勝ちです！おめでとうございます！🎉")
     else:
         print("同じコマ数のため、引き分けです。")
 
@@ -28,12 +28,12 @@ def main():
     i = 0
     pass_count = 0
 
-    while "⬜︎" in board.board and game_continue:
+    while board.ENPTY in board.board and game_continue:
 
         if i == 0:
-            player_frame = "⚫️"
+            player_frame = board.BLACK
         else:
-            player_frame = "⚪️"
+            player_frame = board.WHITE
 
         if board.check_place(player_frame) == False:
             print("プレイヤー", i + 1, player_frame, "は置ける場所がないためパスします。")
@@ -67,7 +67,7 @@ def main():
         board.update_frame_list()
         board.print_board()
 
-        if board.check_for_matches("⚪️") == True or board.check_for_matches("⚫️") == True:
+        if board.check_for_matches(board.WHITE) == True or board.check_for_matches(board.BLACK) == True:
             game_continue = False
             break
 
