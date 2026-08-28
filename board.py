@@ -25,103 +25,35 @@ def check_reverse(selected_place, player_frame):
 
     reverse_frame_list = []
 
-    check_frame_list = []
-    row_end = ((selected_place // 8) + 1) * 8
-    for j in range(selected_place + 1, row_end):
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+    row = selected_place // 8
+    column = selected_place % 8
 
-    check_frame_list = []
-    row_start = (selected_place // 8) * 8
-    for j in range(selected_place - 1, row_start - 1, -1):
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (1, -1), (-1, 1)]
 
-    check_frame_list = []
-    for j in range(selected_place + 8, 64, 8):
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+    for row_move, column_move in directions:
 
-    check_frame_list = []
-    for j in range(selected_place - 8, -1, -8):
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+        check_frame_list = []
 
-    check_frame_list = []
-    j = selected_place
-    while j % 8 != 7 and j + 9 < 64:
-        j += 9
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+        check_row = row + row_move
+        check_column = column + column_move
 
-    check_frame_list = []
-    j = selected_place
-    while j % 8 != 0 and j - 9 >= 0:
-        j -= 9
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+        while 0 <= check_row < 8 and 0 <= check_column < 8:
 
-    check_frame_list = []
-    j = selected_place
-    while j % 8 != 0 and j + 7 < 64:
-        j += 7
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+            check_place = check_row * 8 + check_column
 
-    check_frame_list = []
-    j = selected_place
-    while j % 8 != 7 and j - 7 >= 0:
-        j -= 7
-        if board[j] == opponent_frame:
-            check_frame_list.append(j)
-        elif board[j] == player_frame:
-            if check_frame_list != []:
-                reverse_frame_list += check_frame_list
-            break
-        else:
-            break
+            if board[check_place] == opponent_frame:
+                check_frame_list.append(check_place)
+
+            elif board[check_place] == player_frame:
+                if check_frame_list != []:
+                    reverse_frame_list += check_frame_list
+                break
+
+            else:
+                break
+
+            check_row += row_move
+            check_column += column_move
 
     return reverse_frame_list
 
