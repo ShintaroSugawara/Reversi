@@ -51,9 +51,9 @@ def main():
 
         while True:
 
-            player.check_input(i + 1, player_frame)
+            selected_place = player.check_input(i + 1, player_frame)
 
-            reverse_frame_list = board.check_reverse(player.selected_place, player_frame)
+            reverse_frame_list = board.check_reverse(selected_place, player_frame)
 
             if reverse_frame_list == []:
                 print("そこにはコマを置けません。場所を変えて下さい。")
@@ -61,7 +61,7 @@ def main():
 
             break
 
-        board.put_frame(player.selected_place, player_frame, reverse_frame_list)
+        board.put_frame(selected_place, player_frame, reverse_frame_list)
         board.print_board()
 
         if board.check_for_matches(board.WHITE) == True or board.check_for_matches(board.BLACK) == True:

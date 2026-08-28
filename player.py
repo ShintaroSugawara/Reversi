@@ -4,8 +4,6 @@ import board
 
 def check_input(player, frame):
 
-    global selected_place, selected_place_row, selected_place_column
-
     while True:
 
         try:
@@ -33,3 +31,5 @@ def check_input(player, frame):
             continue
 
         break
+
+    return selected_place
